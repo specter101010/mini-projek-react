@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { searchMovie } from "./api";
 import Login from "./components/login";
+import { Container } from "@mui/material";
 
 
 function App() {
@@ -47,8 +48,8 @@ function App() {
 
   
   return (
-  <div>
-    {/* <div className="container-body">
+    <Container>
+         {/* <div className="container-body">
       <div className="search-btn">
       <input placeholder='cari film...'
             onChange={({target}) => search(target.value)}/>
@@ -58,7 +59,7 @@ function App() {
       </div>
     </div> */}
     <Login />
-  </div>
+    </Container>
   );
 }
 
