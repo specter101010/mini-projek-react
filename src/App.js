@@ -3,6 +3,7 @@ import "./App.css"
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { searchMovie } from "./api";
+import Login from "./components/login";
 
 
 function App() {
@@ -41,12 +42,13 @@ function App() {
       setPopularMovies(query)
     }
   }
-  
+
+ 
 
   
   return (
   <div>
-    <div className="container-body">
+    {/* <div className="container-body">
       <div className="search-btn">
       <input placeholder='cari film...'
             onChange={({target}) => search(target.value)}/>
@@ -54,7 +56,8 @@ function App() {
       <div className="movie-container">
         <PopularMoviesList />
       </div>
-    </div>
+    </div> */}
+    <Login />
   </div>
   );
 }
