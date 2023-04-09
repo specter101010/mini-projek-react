@@ -6,8 +6,6 @@ import { searchMovie } from "./api";
 import Login from "./components/login";
 import { Container } from "@mui/material";
 import ResponsiveAppBar from "./components/navbar";
-import RecipeReviewCard from "./components/card";
-
 
 // card
 import { styled } from '@mui/material/styles';
@@ -101,7 +99,7 @@ function App() {
             />
             <CardContent>
               <Typography variant="body2" color="text.secondary">
-                
+
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
