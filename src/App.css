@@ -1,3 +1,7 @@
+.body{
+  background-color: #222;
+}
+
 .container-body{
   background-color: #222;
   width: 100%;
@@ -30,10 +34,9 @@
 .container-card{
   margin: 15px;
   margin-bottom: 20px;
-  height:550px;
 }
 
-.title{
+/* .title{
   text-align:center;
   padding: 15px;
   background-color: #333;
@@ -57,5 +60,5 @@
   background-color: #444;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
-}
+} */
 
