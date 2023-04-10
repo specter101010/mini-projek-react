@@ -1,87 +1,67 @@
 import React, { useState } from "react";
-import InputText from "./inputTextFeild";
-import { Avatar, Box, Button, Container, Typography } from "@mui/material";
-import LockIcon from '@mui/icons-material/Lock';
-import './login.css'
-import Visibility from '@mui/icons-material/Visibility';
+import { Typography, TextField, Button } from "@mui/material";
 
+const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-const Login =() =>{
-    
-    const [showPassword, setShowPassword] = useState(false);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("Username:", username);
+    console.log("Password:", password);
+    // TODO: Implement login functionality
+  };
 
-    const handleSubmit =(event)=>{
-        event.preventDefault();
+  return (
+    <div style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      minHeight: "100vh",
+    }}>
+      <Typography variant="h4" gutterBottom>
+        Login
+      </Typography>
+      <form style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "16px",
+        padding: "16px",
+        border: "1px solid #ccc",
+        borderRadius: "4px",
+        backgroundColor: "#fff",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+        maxWidth: "360px",
+        width: "100%",
+      }} onSubmit={handleSubmit}>
+        <TextField
+          style={{ width: "100%" }}
+          label="Username"
+          variant="outlined"
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+        />
+        <TextField
+          style={{ width: "100%" }}
+          label="Password"
+          variant="outlined"
+          type="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <Button
+          style={{ width: "100%" }}
+          variant="contained"
+          color="primary"
+          type="submit"
+        >
+          Login
+        </Button>
+      </form>
+    </div>
+  );
+};
 
-        console.log('hello')
-    }
-
-    return(
-        <Container maxWidth='xs' className="cn-lg">
-
-            <Box
-            sx={{
-                marginTop: 8,
-                display: "flex",
-                alignItems: "center",
-                flexDirection:'column',
-            }}
-
-
-            component="form"
-            onSubmit={handleSubmit}
-            >
-            <Avatar>
-                <LockIcon/>
-            </Avatar>
-
-            <Typography component={"h1"} variant="h5">
-                Sign in
-            </Typography>
-
-            < InputText
-            id="email"
-            label="Email Address"
-            variant="outlined"
-            fullWidth
-            required
-            margin="normal"
-            autoFocus
-            name="email"
-            type="text"
-            />
-            <br/>
-
-            <div style={{display:"flex", width:"100%",position:"relative"}}>
-            < InputText
-            id="password"
-            label="password"
-            variant="outlined"
-            fullWidth
-            required
-            margin="normal"
-            autoFocus
-            name="password"
-            type={showPassword ? "text":"password"}
-            />
-           <div style={{ position : "absolute", right: 20, top:33,cursor:"pointer"}}
-           onClick={()=>setShowPassword(!showPassword)}
-           >
-           <Visibility fontSize="small"/>
-           </div>
-
-            </div>
-            
-            <br/>
-            <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            >Sign in</Button>
-            </Box>
-
-         </Container>
-    )
-}
-
-export default Login
+export default Login;

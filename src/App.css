@@ -1,64 +1,8 @@
 .body{
   background-color: #222;
 }
-
-.container-body{
-  background-color: #222;
-  width: 100%;
-  justify-content: center;
-}
-.movie-container{
-  width: 100%;
+.container-card{
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  gap: 20px;
 }
-
-/* search button */
-.search-btn{
-  width: 100%;
-  padding: 30px;
-  display: flex;
-  justify-content: center;
-}
-
-.search-btn input{
-  padding: 10px;
-  width: 200px;
-  background-color: transparent;
-  border: 2px solid #111;
-  border-radius: 10px;
-}
-
-/* container card */
-.container-card{
-  margin: 15px;
-  margin-bottom: 20px;
-}
-
-/* .title{
-  text-align:center;
-  padding: 15px;
-  background-color: #333;
-  margin-bottom: 10px;
-  color: #fff;
-  font-size: 14px;
-  font-family: 'Nunito', sans-serif;
-}
-
-.picture{
-  width: 300px;
-}
-.date{
-  text-align: center;
-  background-color: #444;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-}
-.rate{
-  text-align: center;
-  background-color: #444;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-} */
-
