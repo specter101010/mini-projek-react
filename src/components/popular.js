@@ -79,10 +79,10 @@ const PopularMovies = () => {
       <div className='container-card'>
         {popularMovies.map((movie, i)=>{
             return(
-                <Card sx={{ maxWidth: 350, backgroundColor: '#1f2022' }}>
+                <Card sx={{ maxWidth: 250, backgroundColor: '#1f2022' }}>
                 <CardHeader
                   title={
-                    <Typography variant="h6" component="div" style={{ color: '#fff', fontSize: '1.5rem' }}>
+                    <Typography variant="h6" component="div" style={{ color: '#fff', fontSize: '0.8rem' }}>
                       {movie.title}
                     </Typography>
                   }

@@ -12,6 +12,8 @@ function App() {
       <Navbar/>
       <Container>
         <div className="container-card">
+          <h1>Popular movies</h1>
+          <br></br>
         <PopularMovies />
         </div>
         <Login />
