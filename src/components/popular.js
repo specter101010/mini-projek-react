@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Card, CardHeader, CardMedia, CardContent, CardActions, Collapse,  IconButton,  Typography,  Button } from '@mui/material';
+import {   Favorite as FavoriteIcon,   Share as ShareIcon,   ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
 import './popular.css'
 import { searchMovie } from '../api';
+import {   Backdrop,   Box,   Modal,   Fade } from '@mui/material';
+
 
 
 const PopularMovies = () => {
@@ -66,6 +59,23 @@ const PopularMovies = () => {
       setPopularMovies(query);
     }
   };
+
+  const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
 
 
  
@@ -123,6 +133,41 @@ const PopularMovies = () => {
                     </Typography>
                   </CardContent>
                 </Collapse>
+
+                <Button onClick={handleOpen}>Open modal</Button>
+                 <Modal
+  aria-labelledby="transition-modal-title"
+  aria-describedby="transition-modal-description"
+  open={open}
+  onClose={handleClose}
+  closeAfterTransition
+  slots={{ backdrop: Backdrop }}
+  slotProps={{
+    backdrop: {
+      timeout: 500,
+    },
+  }}
+>
+  <Fade in={open}>
+    <Box sx={style}>
+      <Typography id="transition-modal-title" variant="h6" component="h2">
+        {movie.title}
+      </Typography>
+      <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+        <img src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`} alt="Poster" style={{ height: "auto", width: "50%", marginTop: "1rem" }} />
+        <br /><br />
+        {movie.overview}
+        <br /><br />
+        Release date: {movie.release_date}
+        <br /><br />
+        Rating: {movie.vote_average}
+        <br /><br />
+        Popularity: {movie.popularity}
+      </Typography>
+    </Box>
+  </Fade>
+</Modal>
+
       
               </Card>
             )
