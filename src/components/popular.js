@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from "axios";
-import { styled } from '@mui/material/styles';
-import { Card, CardHeader, CardMedia, CardContent, CardActions, Collapse,  IconButton,  Typography,  Button } from '@mui/material';
-import {   Favorite as FavoriteIcon,   Share as ShareIcon,   ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
-import './popular.css'
+import axios from 'axios';
+import {  Card,  CardHeader,  CardMedia,  Typography,} from '@mui/material';
+import './popular.css';
 import { searchMovie } from '../api';
-import {   Backdrop,   Box,   Modal,   Fade } from '@mui/material';
+import { Button, Modal } from 'antd';
 
 
 
@@ -23,29 +21,8 @@ const PopularMovies = () => {
     });
   }, []);
 
-  const ExpandMore = styled((props) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-  })(({ theme, expand }) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-    color: '#fff',
-    '&:hover': {
-      backgroundColor: '#fff',
-      color: '#000',
-    }
-  }));
+ 
 
-  const [expanded, setExpanded] = useState(Array(popularMovies.length).fill(false));
-
-  const handleExpandClick = (index) => {
-    const expandedCopy = [...expanded];
-    expandedCopy[index] = !expandedCopy[index];
-    setExpanded(expandedCopy);
-  };
 
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -60,123 +37,77 @@ const PopularMovies = () => {
     }
   };
 
-  const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+  const [modalInfo, setModalInfo] = useState({ imageUrl: '', title: '', overview: '' });
+  const [modal2Open, setModal2Open] = useState(false);
 
-const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpenModal = (imageUrl, title, overview, id) => {
+    setModalInfo({ imageUrl, title, overview ,id});
+    setModal2Open(true);
+  };
+  
 
-
-
- 
   return(
     <div>
-           <div className='search-container'>
+      <div className='search-container'>
         <input type='text' value={searchQuery} onChange={handleSearchChange} />
         <button onClick={handleSearchSubmit}>Search</button>
       </div>
 
+
+
+      <Modal
+  title={modalInfo.title}
+  centered
+  visible={modal2Open}
+  onOk={() => setModal2Open(false)}
+  onCancel={() => setModal2Open(false)}
+>
+    <div>{modalInfo.id}</div>
+  <img src={modalInfo.imageUrl} alt={modalInfo.title}  style={{ height: "inherit", width: "50%" }} />
+  <p>{modalInfo.overview}</p>
+</Modal>
+
+
       <div className='container-card'>
         {popularMovies.map((movie, i)=>{
             return(
-                <Card sx={{ maxWidth: 250, backgroundColor: '#1f2022' }}>
-                <CardHeader
-                  title={
-                    <Typography variant="h6" component="div" style={{ color: '#fff', fontSize: '0.8rem' }}>
-                      {movie.title}
-                    </Typography>
-                  }
+                <div className='card-container'>
+                  <Card sx={{ maxWidth: 250, backgroundColor: '#1f2022' }}>
+                    <div className='card-media-container'>
+                    <CardMedia
+  component="img"
+  height="194"
+  image={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+  alt="Paella dish"
+  style={{ height: "inherit", width: "100%", objectFit: "cover" }}
+  
+/>
+
+                    </div>
+                    <Button type="primary" onClick={() => handleOpenModal(`https://image.tmdb.org/t/p/w500/${movie.poster_path}`, movie.title, movie.overview, movie.id)}>
+  View Details
+</Button>
+
+
+                    <CardHeader
+                      title={
+                        <Typography variant="h6" component="div" style={{ color: '#fff', fontSize: '0.8rem' }}>
+                          {movie.title}
+                        </Typography>
+                      }                       
                   subheader={movie.release_date}
                 />
-                <CardMedia
-                  component="img"
-                  height="194"
-                  image={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                  alt="Paella dish"
-                   style={{ height: "inherit", width: "100%", objectFit: "cover" }}
-                />
-                <CardContent>
-                  <Typography variant="body2" color="text.secondary" style={{color: '#fff'}}>
-                  </Typography>
-                </CardContent>
-                <CardActions disableSpacing>
-                  <IconButton aria-label="add to favorites" style={{color: '#fff'}}>
-                    <FavoriteIcon />
-                  </IconButton>
-                  <IconButton aria-label="share" style={{color: '#fff'}}>
-                    <ShareIcon />
-                  </IconButton>
-                  <ExpandMore
-                    expand={expanded[i]}
-                    onClick={() => handleExpandClick(i)}
-                    aria-expanded={expanded[i]}
-                    aria-label="show more"
-                  >
-                    <ExpandMoreIcon />
-                  </ExpandMore>
-                </CardActions>
-                <Collapse in={expanded[i]} timeout="auto" unmountOnExit>
-                  <CardContent>
-                    <Typography paragraph style={{color: '#fff'}}>Method:</Typography>
-                    <Typography paragraph style={{color: '#fff'}}>
-                      {movie.overview}
-                    </Typography>
-                  </CardContent>
-                </Collapse>
-
-                <Button onClick={handleOpen}>Open modal</Button>
-                 <Modal
-  aria-labelledby="transition-modal-title"
-  aria-describedby="transition-modal-description"
-  open={open}
-  onClose={handleClose}
-  closeAfterTransition
-  slots={{ backdrop: Backdrop }}
-  slotProps={{
-    backdrop: {
-      timeout: 500,
-    },
-  }}
->
-  <Fade in={open}>
-    <Box sx={style}>
-      <Typography id="transition-modal-title" variant="h6" component="h2">
-        {movie.title}
-      </Typography>
-      <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-        <img src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`} alt="Poster" style={{ height: "auto", width: "50%", marginTop: "1rem" }} />
-        <br /><br />
-        {movie.overview}
-        <br /><br />
-        Release date: {movie.release_date}
-        <br /><br />
-        Rating: {movie.vote_average}
-        <br /><br />
-        Popularity: {movie.popularity}
-      </Typography>
-    </Box>
-  </Fade>
-</Modal>
-
-      
-              </Card>
-            )
+                    
+                
+                  </Card>
+                </div>
+            );
         })}
-     
       </div>
-           
+   
+
     </div>
-  )
+  );
 };
 
 export default PopularMovies;
