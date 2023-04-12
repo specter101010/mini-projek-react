@@ -40,8 +40,8 @@ const PopularMovies = () => {
   const [modalInfo, setModalInfo] = useState({ imageUrl: '', title: '', overview: '' });
   const [modal2Open, setModal2Open] = useState(false);
 
-  const handleOpenModal = (imageUrl, title, overview, id) => {
-    setModalInfo({ imageUrl, title, overview ,id});
+  const handleOpenModal = (imageUrl, title, overview, id, popularity) => {
+    setModalInfo({ imageUrl, title, overview ,id, popularity});
     setModal2Open(true);
   };
   
@@ -63,6 +63,7 @@ const PopularMovies = () => {
   onCancel={() => setModal2Open(false)}
 >
     <div>{modalInfo.id}</div>
+    <div>{modalInfo.popularity}</div>
   <img src={modalInfo.imageUrl} alt={modalInfo.title}  style={{ height: "inherit", width: "50%" }} />
   <p>{modalInfo.overview}</p>
 </Modal>
@@ -84,7 +85,7 @@ const PopularMovies = () => {
 />
 
                     </div>
-                    <Button type="primary" onClick={() => handleOpenModal(`https://image.tmdb.org/t/p/w500/${movie.poster_path}`, movie.title, movie.overview, movie.id)}>
+                    <Button type="primary" onClick={() => handleOpenModal(`https://image.tmdb.org/t/p/w500/${movie.poster_path}`, movie.title, movie.overview, movie.id,movie.popularity)}>
   View Details
 </Button>
 
