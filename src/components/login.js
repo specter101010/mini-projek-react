@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Typography, TextField, Button, responsiveFontSizes } from "@mui/material";
+import { Typography, TextField, Button } from "@mui/material";
 import { useEffect } from "react";
+import { Modal } from 'antd';
+import UserData from "./user";
 
 const Login = () => {
 
@@ -8,9 +10,14 @@ const Login = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  
 
   // state untuk menyimpan token akses
   const [accessToken, setAccessToken] = useState(null);
+  const [sesionToken, setSesionToken] = useState(null);
+
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -69,7 +76,8 @@ const Login = () => {
       console.log(tokenData);
       console.log(userToken);
       console.log(data.session_id);
-
+      setSesionToken(data.session_id);
+      
       // Simpan token akses yang didapat ke dalam state
       setAccessToken(data.request_token);
       // Tampilkan detail user di console log
@@ -83,6 +91,7 @@ const Login = () => {
     } else {
       console.error("Login gagal:", data);
       // TODO: Tampilkan pesan error ke pengguna
+      setModalVisible(true);
     }
   };
 
@@ -100,56 +109,51 @@ const Login = () => {
       getUserData();
     }
   }, [accessToken, apiKey]);
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  }
+
   return (
-    <div style={{
-      display: "flex",
+    <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh",}}>
+      <Typography variant="h4">Login to your account</Typography>
+      <form onSubmit={handleSubmit} style={{
+        display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      justifyContent: "center",
-      minHeight: "100vh",
+            marginTop: "2rem",
     }}>
-      <Typography variant="h4" gutterBottom>
+      <TextField
+      label="Username"
+      variant="outlined"
+      value={username}
+      onChange={(event) => setUsername(event.target.value)}
+      style={{ marginBottom: "1rem" }}
+      />
+      <TextField
+      label="Password"
+      variant="outlined"
+      value={password}
+      onChange={(event) => setPassword(event.target.value)}
+      type="password"
+      style={{ marginBottom: "1rem" }}
+      />
+      <Button variant="contained" color="primary" type="submit">
         Login
-      </Typography>
-      <form style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "16px",
-        padding: "16px",
-        border: "1px solid #ccc",
-        borderRadius: "4px",
-        backgroundColor: "#fff",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-        maxWidth: "360px",
-        width: "100%",
-      }} onSubmit={handleSubmit}>
-        <TextField
-          style={{ width: "100%" }}
-          label="Username"
-          variant="outlined"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-        />
-        <TextField
-          style={{ width: "100%" }}
-          label="Password"
-          variant="outlined"
-          type="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <Button
-          style={{ width: "100%" }}
-          variant="contained"
-          color="primary"
-          type="submit"
-        >
-          Login
-        </Button>
+      </Button>
+      
       </form>
-    </div>
-  );
-};
+      <UserData apiKey={apiKey} accessToken={sesionToken} />
 
+
+        <Modal visible={modalVisible} onCancel={handleCloseModal}>
+          <Typography variant="h6">Login failed!</Typography>
+        <Typography>Please check your username and password.</Typography>
+      </Modal>
+ 
+
+      </div>
+      );
+    };
+      
 export default Login;
