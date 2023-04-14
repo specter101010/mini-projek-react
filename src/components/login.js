@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Typography, TextField, Button } from "@mui/material";
 import { useEffect } from "react";
 import { Modal } from 'antd';
-import UserData from "./user";
+import Navbar from "./navbar";
 
 const Login = () => {
 
@@ -115,7 +115,10 @@ const Login = () => {
   }
 
   return (
-    <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh",}}>
+    <div style={{display: "flex", flexDirection: "column", alignItems: "center",  minHeight: "100vh",}}>
+
+      <Navbar apiKey={apiKey} accessToken={sesionToken} />
+      
       <Typography variant="h4">Login to your account</Typography>
       <form onSubmit={handleSubmit} style={{
         display: "flex",
@@ -143,7 +146,7 @@ const Login = () => {
       </Button>
       
       </form>
-      <UserData apiKey={apiKey} accessToken={sesionToken} />
+
 
 
         <Modal visible={modalVisible} onCancel={handleCloseModal}>

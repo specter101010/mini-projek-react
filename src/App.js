@@ -1,7 +1,6 @@
 // File: App.js
 import React from "react";
 import { Container } from "@mui/material";
-import Navbar from "./components/navbar";
 import PopularMovies from './components/popular';
 import Login from "./components/login";
 import './App.css'
@@ -9,14 +8,13 @@ import './App.css'
 function App() {
   return (
     <div className="body">
-      <Navbar/>
+        <Login />
       <Container>
         <div className="container-card">
           <h1>Popular movies</h1>
           <br></br>
         <PopularMovies />
-        </div>
-        <Login />
+        </div>      
       </Container>
     </div>
   );
