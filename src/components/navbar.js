@@ -11,7 +11,6 @@ import AdbIcon from '@mui/icons-material/Adb';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
-import Login from "./login";
 
 const pages = ['Popular', 'Trending', 'About'];
 const settings = ['Profile', 'info'];

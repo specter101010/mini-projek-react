@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,  } from "react";
 import { Typography, TextField, Button } from "@mui/material";
 import { Modal } from 'antd';
 import Navbar from "./navbar";
@@ -9,14 +9,14 @@ const Login = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [userInfo, setUserInfo] = useState(null);
+  // const [userInfo, setUserInfo] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [hidden, setHidden] = useState('flex');
 
 
 
   // state untuk menyimpan token akses
-  const [accessToken, setAccessToken] = useState();
+  // const [accessToken, setAccessToken] = useState();
   const [sessionToken, setSessionToken] = useState();
 
 
@@ -80,7 +80,7 @@ const Login = () => {
       setHidden('none')
       setModalOpen(false)
       setSessionToken(data.session_id);
-      setAccessToken(userToken.request_token);
+      // setAccessToken(userToken.request_token);
 
       // Tampilkan detail user di console log
       console.log("Detail user:");
@@ -89,7 +89,7 @@ const Login = () => {
       );
       const userData = await userResponse.json();
       console.log(userData);
-      setUserInfo(userData);
+      // setUserInfo(userData);
 
     } else {
       console.error("Login gagal:", data);
@@ -99,20 +99,20 @@ const Login = () => {
   };
 
 
-  useEffect(() => {
-    // Jika token akses tersedia, ambil detail user
-    if (accessToken) {
-      const getUserData = async () => {
-        const userResponse = await fetch(
-          `https://api.themoviedb.org/3/account?api_key=${apiKey}&session_id=${accessToken}`
-        );
-        const userData = await userResponse.json();
-        setUserInfo(userData)
-      };
+  // useEffect(() => {
+  //   // Jika token akses tersedia, ambil detail user
+  //   if (accessToken) {
+  //     const getUserData = async () => {
+  //       const userResponse = await fetch(
+  //         `https://api.themoviedb.org/3/account?api_key=${apiKey}&session_id=${accessToken}`
+  //       );
+  //       const userData = await userResponse.json();
+  //       setUserInfo(userData)
+  //     };
       
-      getUserData();
-    }
-  }, [accessToken, apiKey]);
+  //     getUserData();
+  //   }
+  // }, [accessToken, apiKey]);
  
 
   const handleCloseModal = () => {
@@ -131,10 +131,10 @@ const Login = () => {
   localStorage.removeItem("sessionToken");
   
   // Set state accessToken dan sessionToken ke null
-  setAccessToken(null);
+  // setAccessToken(null);
   setSessionToken(null);
   // Set state userInfo ke null
-  setUserInfo(null);
+  // setUserInfo(null);
   // Set state hidden ke 'flex'
   setHidden('flex');
 };
