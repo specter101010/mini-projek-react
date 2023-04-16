@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, TextField, Button } from "@mui/material";
-import { useEffect } from "react";
 import { Modal } from 'antd';
 import Navbar from "./navbar";
 
@@ -10,11 +9,16 @@ const Login = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  
+  const [userInfo, setUserInfo] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [hidden, setHidden] = useState('flex');
+
+
 
   // state untuk menyimpan token akses
-  const [accessToken, setAccessToken] = useState(null);
-  const [sesionToken, setSesionToken] = useState(null);
+  const [accessToken, setAccessToken] = useState();
+  const [sessionToken, setSessionToken] = useState();
+
 
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -53,7 +57,7 @@ const Login = () => {
     );
     const userToken = await userLogin.json();
 
-    const sesionId = await fetch(
+    const sessionId = await fetch(
       `https://api.themoviedb.org/3/authentication/session/new?api_key=${apiKey}`,
       {
         method: "POST",
@@ -66,20 +70,18 @@ const Login = () => {
       }
     );
 
-    const data = await sesionId.json();
+    const data = await sessionId.json();
 
     // Cek apakah respon berhasil
     if (userLogin.ok) {
-      // console.log("Login berhasil:", data);
-      // console.log(data)
-
       console.log(tokenData);
       console.log(userToken);
       console.log(data.session_id);
-      setSesionToken(data.session_id);
-      
-      // Simpan token akses yang didapat ke dalam state
-      setAccessToken(data.request_token);
+      setHidden('none')
+      setModalOpen(false)
+      setSessionToken(data.session_id);
+      setAccessToken(userToken.request_token);
+
       // Tampilkan detail user di console log
       console.log("Detail user:");
       const userResponse = await fetch(
@@ -87,6 +89,7 @@ const Login = () => {
       );
       const userData = await userResponse.json();
       console.log(userData);
+      setUserInfo(userData);
 
     } else {
       console.error("Login gagal:", data);
@@ -94,6 +97,7 @@ const Login = () => {
       setModalVisible(true);
     }
   };
+
 
   useEffect(() => {
     // Jika token akses tersedia, ambil detail user
@@ -103,22 +107,44 @@ const Login = () => {
           `https://api.themoviedb.org/3/account?api_key=${apiKey}&session_id=${accessToken}`
         );
         const userData = await userResponse.json();
-        console.log(userData);
+        setUserInfo(userData)
       };
-
+      
       getUserData();
     }
   }, [accessToken, apiKey]);
+ 
 
   const handleCloseModal = () => {
     setModalVisible(false);
-  }
+  };
+
+
+
+  const handleOpenModal = () => {
+    setModalOpen(true)
+  };
+
+    const handleLogout = () => {
+  // Hapus data login dari localStorage
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("sessionToken");
+  
+  // Set state accessToken dan sessionToken ke null
+  setAccessToken(null);
+  setSessionToken(null);
+  // Set state userInfo ke null
+  setUserInfo(null);
+  // Set state hidden ke 'flex'
+  setHidden('flex');
+};
 
   return (
-    <div style={{display: "flex", flexDirection: "column", alignItems: "center",  minHeight: "100vh",}}>
-
-      <Navbar apiKey={apiKey} accessToken={sesionToken} />
-      
+    <div>
+        
+        <Navbar apiKey={apiKey} accessToken={sessionToken} />
+     
+      <Modal visible={modalOpen} onCancel={() => setModalOpen(false)}   footer={null}>
       <Typography variant="h4">Login to your account</Typography>
       <form onSubmit={handleSubmit} style={{
         display: "flex",
@@ -146,8 +172,15 @@ const Login = () => {
       </Button>
       
       </form>
+  </Modal>
 
+  <Button type="primary" onClick={() => handleOpenModal()}  style={{display: hidden }}>
+  Login
+</Button>
 
+<Button onClick={handleLogout} type="primary" style={{ marginTop: '1rem' }}>
+      Logout
+    </Button>
 
         <Modal visible={modalVisible} onCancel={handleCloseModal}>
           <Typography variant="h6">Login failed!</Typography>
