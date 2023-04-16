@@ -21,6 +21,11 @@ function Navbar({ apiKey, accessToken }) {
   const [userData, setUserData] = useState({ avatar: { tmdb: { avatar_path: "" } } });
   const [modalOpen, setModalOpen] = useState(false);
   const [hidden, setHidden] = useState('none');
+  
+  console.log("ini dari navbar")
+  console.log(accessToken)
+  console.log(apiKey)
+
 
   useEffect(() => {
     const fetchUserData = async () => {

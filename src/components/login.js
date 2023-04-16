@@ -11,13 +11,15 @@ const Login = () => {
   const [password, setPassword] = useState("");
   // const [userInfo, setUserInfo] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const [hidden, setHidden] = useState('flex');
 
 
 
   // state untuk menyimpan token akses
   // const [accessToken, setAccessToken] = useState();
-  const [sessionToken, setSessionToken] = useState();
+  
+  const [sessionToken, setSessionToken] = useState(localStorage.getItem("sessionToken"));
+  const [hidden, setHidden] = useState(sessionToken ? "none" : "flex");
+
 
 
 
@@ -81,6 +83,8 @@ const Login = () => {
       setModalOpen(false)
       setSessionToken(data.session_id);
       // setAccessToken(userToken.request_token);
+      localStorage.setItem("sessionToken", data.session_id);
+      
 
       // Tampilkan detail user di console log
       console.log("Detail user:");
@@ -97,6 +101,8 @@ const Login = () => {
       setModalVisible(true);
     }
   };
+  
+  
 
 
   // useEffect(() => {
@@ -125,10 +131,23 @@ const Login = () => {
     setModalOpen(true)
   };
 
-    const handleLogout = () => {
-  // Hapus data login dari localStorage
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("sessionToken");
+    const handleLogout = async () => {
+      const sessionId = await fetch(
+        `https://api.themoviedb.org/3/authentication/session?api_key=${apiKey}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            session_id : sessionToken
+          }),
+        }
+      );
+      if(sessionId.ok){
+          localStorage.removeItem("accessToken");
+  localStorage.removeItem("sessionToken",sessionId );
+  window.location.reload();
   
   // Set state accessToken dan sessionToken ke null
   // setAccessToken(null);
@@ -137,6 +156,9 @@ const Login = () => {
   // setUserInfo(null);
   // Set state hidden ke 'flex'
   setHidden('flex');
+      }
+      
+
 };
 
   return (
