@@ -3,22 +3,22 @@ import axios from 'axios';
 import {  Card,  CardHeader,  CardMedia,  Typography,} from '@mui/material';
 import './popular.css';
 import { searchMovie } from '../api';
-import { Modal } from 'antd';
+import {  Modal } from 'antd';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 
 
 
-const PopularMovies = () => {
-  const [popularMovies, setPopularMovies] = useState([]);
+const TrendingMovies = () => {
+  const [TrendingMovies, setTrendingMovies] = useState([]);
 
   useEffect(() => {
     const getMovieList = async () => {
-      const response = await axios.get(process.env.REACT_APP_POPULAR);
+      const response = await axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=36bc3a789b7ad9af4dd3bd9d3f3df68a`);
       return response.data.results;
     };
 
     getMovieList().then((result) => {
-      setPopularMovies(result);
+      setTrendingMovies(result);
     });
   }, []);
 
@@ -34,7 +34,7 @@ const PopularMovies = () => {
   const handleSearchSubmit = async () => {
     if (searchQuery.length > 3) {
       const query = await searchMovie(searchQuery);
-      setPopularMovies(query);
+      setTrendingMovies(query);
     }
   };
 
@@ -55,7 +55,7 @@ const PopularMovies = () => {
 </div>
 
  <div style={{ textAlign: "center" }}>
- <h1>Popular movies</h1>
+ <h1>Trending Movies</h1>
 </div>
 
 
@@ -79,7 +79,7 @@ const PopularMovies = () => {
 
 
       <div className='container-card'>
-        {popularMovies.map((movie, i)=>{
+        {TrendingMovies.map((movie, i)=>{
             return(
                 <div className='card-container'>
                   <Card sx={{ maxWidth: 150, backgroundColor: '#1f2022' }}>
@@ -100,14 +100,19 @@ const PopularMovies = () => {
                       </div>
                       </div>
 
-                    <CardHeader
-                      title={
-                        <Typography variant="h6" component="div" style={{ color: '#fff', fontSize: '0.8rem' }}>
-                          {movie.title}
-                        </Typography>
-                      }                       
-                  subheader={movie.release_date}
-                />
+
+
+
+<CardHeader
+  title={
+    <Typography variant="h6" component="div" style={{ color: '#fff', fontSize: '0.8rem', textAlign:"center" , borderBottom: "1px solid #111",paddingBottom: "5px"}}>
+      {movie.title || movie.name}
+    </Typography>
+  }                       
+  subheader={movie.release_date || movie.first_air_date }  
+  style={{ fontSize: '0.8rem', textAlign:"center"}}
+/>
+
                     
                 
                   </Card>
@@ -121,4 +126,4 @@ const PopularMovies = () => {
   );
 };
 
-export default PopularMovies;
+export default TrendingMovies;

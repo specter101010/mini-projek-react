@@ -4,6 +4,7 @@ import { Container } from "@mui/material";
 import PopularMovies from './components/popular';
 import Login from "./components/login";
 import './App.css'
+import TrendingMovies from "./components/trending";
 
 function App() {
   return (
@@ -11,9 +12,10 @@ function App() {
       <Login/>
       <Container>
         <div className="container-card">
-          <h1>Popular movies</h1>
-          <br></br>
+         
         <PopularMovies />
+        <TrendingMovies/>
+
         </div>      
       </Container>
     </div>
