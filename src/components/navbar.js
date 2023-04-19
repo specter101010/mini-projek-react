@@ -13,11 +13,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 
 
-const pages = ['Popular', 'Trending', 'About'];
+const pages = ['Popular', 'Trending'];
 const settings = ['Profile', 'info'];
 
 function Navbar({ apiKey, accessToken }) {
-  const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [userData, setUserData] = useState({ avatar: { tmdb: { avatar_path: "" } } });
   const [modalOpen, setModalOpen] = useState(false);
@@ -47,9 +46,14 @@ function Navbar({ apiKey, accessToken }) {
     }  
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  const handlePopularMoviesClick = () => {
+    window.scrollTo(0, document.getElementById('popular-movies').offsetTop);
+  }
+
+  const handleTrendingMoviesClick = () => {
+    window.scrollTo(0, document.getElementById('trending-movies').offsetTop);
+  }
+
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -105,7 +109,7 @@ function Navbar({ apiKey, accessToken }) {
 
         <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
           {pages.map((page) => (
-            <Button key={page} color="inherit">
+            <Button key={page} color="inherit"  onClick={page === "Popular" ? handlePopularMoviesClick:  handleTrendingMoviesClick }>
               {page}
             </Button>
           ))}
@@ -159,21 +163,7 @@ function Navbar({ apiKey, accessToken }) {
               </IconButton>
               </Tooltip>
               )}
-                    <Menu
-      id="menu-nav"
-      anchorEl={anchorElNav}
-      anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-      open={Boolean(anchorElNav)}
-      onClose={handleCloseNavMenu}
-    >
-      {pages.map((page) => (
-        <MenuItem key={page} onClick={handleLogin}>
-          {page}
-        </MenuItem>
-      ))}
-    </Menu>
+                   
   </Toolbar>
 </Box>
 <Modal

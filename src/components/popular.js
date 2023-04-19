@@ -49,11 +49,30 @@ const PopularMovies = () => {
 
   return(
     <div>
-      <div style={{ textAlign: "center" }}>
-  <input type="text" value={searchQuery} onChange={handleSearchChange} />
-  <button onClick={handleSearchSubmit}>Search</button>
+     <div style={{ textAlign: "center", padding: "20px" }}>
+  <input type="text" 
+    value={searchQuery} 
+    onChange={handleSearchChange} 
+    style={{ 
+      borderRadius: "10px", 
+      border: "1px solid #ccc", 
+      padding: "10px",
+      marginRight:"10px"
+    }} 
+  />
+  <button 
+    onClick={handleSearchSubmit} 
+    style={{ 
+      backgroundColor: "#0099ff", 
+      color: "#fff", 
+      borderRadius: "10px", 
+      padding: "10px",
+      border: "none"
+    }}
+  >
+    Search
+  </button>
 </div>
-
  <div style={{ textAlign: "center" }}>
  <h1>Popular movies</h1>
 </div>

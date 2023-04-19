@@ -17,9 +17,15 @@ function App() {
         <div className="container-card">
           <div className="carousel">
             <UpComingMovies/>
-          </div>      
-          <PopularMovies />
-          <TrendingMovies/>
+          </div>  
+          <div id="popular-movies">
+          <PopularMovies/>
+          </div>    
+          
+          <div id="trending-movies">
+            <TrendingMovies/>
+          </div>
+          
         </div>      
       </Container>
       <Layout.Footer style={{ width: '100%' }}>
@@ -27,15 +33,15 @@ function App() {
           <Row>
             <Col span={8} offset={4}>
               <h4><PhoneOutlined /> Kontak</h4>
-              <a href="tel:08982228178"><PhoneOutlined />0898-222-8178</a>
-              <a href="yasyirmasyal@gmail.com"><MailOutlined /> yasyirmasyal@gmail.com</a>
+              <a href="tel:08982228178"><PhoneOutlined /></a>
+              <a href="yasyirmasyal@gmail.com"><MailOutlined /></a>
             </Col>
             <Col span={8} offset={4}>
               <h4><FacebookOutlined /> Sosial Media</h4>
-              <a href="https://www.facebook.com/yasir.masyal.5?mibextid=ZbWKwL"><FacebookOutlined />Yasir Masy'al</a>
-              <a href="https://instagram.com/lauliet_y?igshid=ZDdkNTZiNTM="><InstagramOutlined />@LAULIET_Y</a>
-              <a href="https://github.com/yasyir90"><GithubOutlined />yasyir90</a>
-              <a href="https://www.linkedin.com/in/yasyir-masy-al"><LinkedinOutlined />Yasyir Masy'al</a>
+              <a href="https://www.facebook.com/yasir.masyal.5?mibextid=ZbWKwL"><FacebookOutlined /></a>
+              <a href="https://instagram.com/lauliet_y?igshid=ZDdkNTZiNTM="><InstagramOutlined /></a>
+              <a href="https://github.com/yasyir90"><GithubOutlined /></a>
+              <a href="https://www.linkedin.com/in/yasyir-masy-al"><LinkedinOutlined /></a>
             </Col>
           </Row>
           <p style={{ textAlign: 'center' }}>© Yasyir Masy'al 2023. All rights reserved.</p>

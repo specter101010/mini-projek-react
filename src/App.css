@@ -20,3 +20,16 @@
   padding: 10px;
 }
 
+@media (max-width: 576px) {
+  .footer {
+    display: flex;
+    flex-direction: column;
+  }
+  .footer > Row {
+    flex-direction: column;
+  }
+  .footer > Row > Col {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+}
