@@ -27,9 +27,6 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Username:", username);
-    console.log("Password:", password);
-
     // Kirim permintaan ke API untuk memverifikasi login
     const token = await fetch(
       `https://api.themoviedb.org/3/authentication/token/new?api_key=${apiKey}`,
@@ -76,24 +73,11 @@ const Login = () => {
 
     // Cek apakah respon berhasil
     if (userLogin.ok) {
-      console.log(tokenData);
-      console.log(userToken);
-      console.log(data.session_id);
       setHidden('none')
       setModalOpen(false)
       setSessionToken(data.session_id);
       // setAccessToken(userToken.request_token);
       localStorage.setItem("sessionToken", data.session_id);
-      
-
-      // Tampilkan detail user di console log
-      console.log("Detail user:");
-      const userResponse = await fetch(
-        `https://api.themoviedb.org/3/account?api_key=${apiKey}&session_id=${data.session_id}`
-      );
-      const userData = await userResponse.json();
-      console.log(userData);
-      // setUserInfo(userData);
 
     } else {
       console.error("Login gagal:", data);
@@ -101,24 +85,6 @@ const Login = () => {
       setModalVisible(true);
     }
   };
-  
-  
-
-
-  // useEffect(() => {
-  //   // Jika token akses tersedia, ambil detail user
-  //   if (accessToken) {
-  //     const getUserData = async () => {
-  //       const userResponse = await fetch(
-  //         `https://api.themoviedb.org/3/account?api_key=${apiKey}&session_id=${accessToken}`
-  //       );
-  //       const userData = await userResponse.json();
-  //       setUserInfo(userData)
-  //     };
-      
-  //     getUserData();
-  //   }
-  // }, [accessToken, apiKey]);
  
 
   const handleCloseModal = () => {
@@ -148,13 +114,7 @@ const Login = () => {
           localStorage.removeItem("accessToken");
   localStorage.removeItem("sessionToken",sessionId );
   window.location.reload();
-  
-  // Set state accessToken dan sessionToken ke null
-  // setAccessToken(null);
   setSessionToken(null);
-  // Set state userInfo ke null
-  // setUserInfo(null);
-  // Set state hidden ke 'flex'
   setHidden('flex');
       }
       

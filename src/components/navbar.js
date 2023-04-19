@@ -12,6 +12,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 
+
 const pages = ['Popular', 'Trending', 'About'];
 const settings = ['Profile', 'info'];
 
@@ -22,11 +23,6 @@ function Navbar({ apiKey, accessToken }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [hidden, setHidden] = useState('none');
   
-  console.log("ini dari navbar")
-  console.log(accessToken)
-  console.log(apiKey)
-
-
   useEffect(() => {
     const fetchUserData = async () => {
       if (accessToken) {
@@ -42,9 +38,7 @@ function Navbar({ apiKey, accessToken }) {
   }, [apiKey, accessToken]);
 
 
-  // const handleOpenNavMenu = (event) => {
-  //   setAnchorElNav(event.currentTarget);
-  // };
+
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -116,6 +110,8 @@ function Navbar({ apiKey, accessToken }) {
             </Button>
           ))}
         </Box>
+
+      
 
         {userData ? (
           <Box sx={{ display: { xs: 'flex',  md: 'flex'} }}>

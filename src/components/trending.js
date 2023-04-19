@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {  Card,  CardHeader,  CardMedia,  Typography,} from '@mui/material';
 import './popular.css';
-import { searchMovie } from '../api';
 import {  Modal } from 'antd';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 
@@ -25,18 +24,7 @@ const TrendingMovies = () => {
  
 
 
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
-  
-  const handleSearchSubmit = async () => {
-    if (searchQuery.length > 3) {
-      const query = await searchMovie(searchQuery);
-      setTrendingMovies(query);
-    }
-  };
+ 
 
   const [modalInfo, setModalInfo] = useState({ imageUrl: '', title: '', overview: '' });
   const [modal2Open, setModal2Open] = useState(false);
@@ -49,11 +37,7 @@ const TrendingMovies = () => {
 
   return(
     <div>
-      <div style={{ textAlign: "center" }}>
-  <input type="text" value={searchQuery} onChange={handleSearchChange} />
-  <button onClick={handleSearchSubmit}>Search</button>
-</div>
-
+  
  <div style={{ textAlign: "center" }}>
  <h1>Trending Movies</h1>
 </div>
