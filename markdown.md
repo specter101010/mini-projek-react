@@ -5,18 +5,25 @@ API
 
 Library
 
-    Express.js: digunakan sebagai framework untuk pengembangan aplikasi web dengan Node.js.
-    Mongoose: digunakan sebagai Object Data Modeling (ODM) untuk MongoDB.
-    Axios: digunakan untuk melakukan HTTP request ke OpenWeatherMap API dan mendapatkan responsenya.
-    Moment.js: digunakan untuk memanipulasi dan menampilkan tanggal dan waktu pada aplikasi.
+    Axios: digunakan untuk melakukan HTTP request ke server dan mendapatkan responsenya.
+    React-Bootstrap: digunakan untuk membuat tampilan UI dengan komponen Bootstrap yang dioptimalkan untuk React.
+    Ant-Design: digunakan untuk membuat tampilan UI dengan komponen desain modern yang dioptimalkan untuk React.
+    React DOM: digunakan untuk mengintegrasikan React dengan browser DOM.
+    Material-UI: digunakan untuk membuat tampilan UI dengan komponen Material Design yang dioptimalkan untuk React.
 
 Daftar Fitur
 Aplikasi yang dikembangkan menggunakan API dan library di atas memiliki fitur-fitur sebagai berikut:
 
-
-1. Mendapatkan informasi cuaca saat ini berdasarkan nama kota yang diinputkan oleh pengguna.
-2. Menampilkan ikon cuaca yang sesuai dengan kondisi cuaca saat ini.
-3. Menampilkan suhu, tekanan udara, kelembaban udara, dan kecepatan angin pada kota yang dipilih.
-4. Mengubah suhu dari Celsius ke Fahrenheit atau sebaliknya berdasarkan pilihan pengguna.
-5. Menampilkan tanggal dan waktu terkini pada kota yang dipilih.
-6. Menampilkan pesan error jika terjadi kesalahan saat mengambil data cuaca dari OpenWeatherMap API.
+    Navbar: Terdapat navbar pada setiap halaman yang berisi menu navigasi seperti home, daftar film, profil, kontak, dan sebagainya.
+    Login: Pengguna dapat masuk ke dalam aplikasi dengan menggunakan akun yang telah terdaftar.
+    Logout: Pengguna dapat keluar dari aplikasi setelah selesai menggunakan.
+    Info: Pengguna dapat melihat informasi mengenai web.
+    Profile: Pengguna dapat melihat dan mengubah profil pribadi mereka seperti nama, email, foto profil, dan sebagainya.
+    Footer: Terdapat footer yang menampilkan informasi penting mengenai aplikasi seperti hak cipta, kontak, dan sebagainya.
+    Contact: Pengguna dapat menghubungi tim pengembang jika terdapat masalah atau pertanyaan mengenai aplikasi.
+    Movie List: Pengguna dapat melihat daftar film yang tersedia dalam aplikasi.
+    Carousel: Terdapat fitur carousel pada halaman utama yang menampilkan gambar dan judul film terbaru.
+    Movie Trending: Pengguna dapat melihat film-film yang sedang populer dan banyak ditonton oleh pengguna lain.
+    Movie Popular: Pengguna dapat melihat daftar film yang paling populer dalam periode waktu tertentu.
+    Movie Upcoming: Pengguna dapat melihat daftar film yang akan tayang dalam waktu dekat.
+    Card Movie: Setiap film memiliki detail yang ditampilkan pada kartu seperti gambar poster, judul, sinopsis, dan sebagainya.
